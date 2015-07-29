@@ -1,0 +1,13 @@
+{
+    "name": "chasingmaxwell/mock-data-extension",
+    "description": "Mock data extension for behat.",
+    "type": "behat-extension",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Peter Sieg",
+            "email": "chasingmaxwell@gmail.com"
+        }
+    ],
+    "require": {}
+}
