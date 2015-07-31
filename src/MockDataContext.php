@@ -1,5 +1,7 @@
 <?php
 
+namespace chasingmaxwell\MockData;
+
 use chasingmaxwell\MockData\MockDataRawContext;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\PyStringNode;
