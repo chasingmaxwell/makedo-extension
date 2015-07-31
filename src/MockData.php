@@ -1,5 +1,7 @@
 <?php
 
+namespace chasingmaxwell\MockData;
+
 /**
  * @file
  * Contains the class MockData.
@@ -8,7 +10,19 @@
 class MockData {
 
   /** @var array An array of mock data records grouped by type. */
-  protected static $records = array();
+  private static $records = array();
+
+  /**
+   * Reset data.
+   *
+   * This is useful to set initial mock data records.
+   *
+   * @param array $data
+   *   An array of mock data records grouped by type.
+   */
+  public function resetData($data) {
+    self::$records = $data;
+  }
 
   /**
    * Add a mock record.

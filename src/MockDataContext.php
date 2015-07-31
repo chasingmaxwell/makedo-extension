@@ -22,7 +22,7 @@ class MockDataContext extends MockDataRawContext implements SnippetAcceptingCont
    */
   public function assertRecords($type, TableNode $records) {
     foreach ($records->getHash() as $record) {
-      $this->mockData->addRecord($type, $record);
+      $this->getMockData()->addRecord($type, $record);
     }
   }
 
@@ -32,7 +32,7 @@ class MockDataContext extends MockDataRawContext implements SnippetAcceptingCont
    * @Given a/an :type record:
    */
   public function assertRecord($type, TableNode $record) {
-    $this->mockData->addRecord($type, $record->getRowsHash());
+    $this->getMockData()->addRecord($type, $record->getRowsHash());
   }
 
   /**
@@ -42,7 +42,7 @@ class MockDataContext extends MockDataRawContext implements SnippetAcceptingCont
    */
   public function retrieveRecords($type, TableNode $parameters) {
     // Retrieve records.
-    $this->records = $this->mockData->getRecords($type, $parameters->getRowsHash());
+    $this->records = $this->getMockData()->getRecords($type, $parameters->getRowsHash());
   }
 
   /**
@@ -52,10 +52,10 @@ class MockDataContext extends MockDataRawContext implements SnippetAcceptingCont
    */
   public function assertRetrievedRecords($type, TableNode $parameters) {
     // Retrieve records.
-    $this->records = $this->mockData->getRecords($type, $parameters->getRowsHash());
+    $this->records = $this->getMockData()->getRecords($type, $parameters->getRowsHash());
 
     if (empty($this->records)) {
-      throw new Exception('There were no records that matched the given parameters.');
+      throw new \Exception('There were no records that matched the given parameters.');
     }
   }
 
@@ -66,10 +66,10 @@ class MockDataContext extends MockDataRawContext implements SnippetAcceptingCont
    */
   public function assertNoRetrievedRecords($type, TableNode $parameters) {
     // Retrieve records.
-    $this->records = $this->mockData->getRecords($type, $parameters->getRowsHash());
+    $this->records = $this->getMockData()->getRecords($type, $parameters->getRowsHash());
 
     if (!empty($this->records)) {
-      throw new Exception('There were records that matched the given parameters.');
+      throw new \Exception('There were records that matched the given parameters.');
     }
   }
 }

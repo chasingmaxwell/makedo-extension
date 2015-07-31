@@ -11,4 +11,8 @@ abstract class MockDataRawContext implements MockDataAwareContext {
   public function setMockData(MockData $mockData) {
     $this->mockData = $mockData;
   }
+
+  public function getMockData() {
+    return $this->mockData;
+  }
 }

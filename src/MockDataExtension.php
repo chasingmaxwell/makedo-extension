@@ -1,11 +1,14 @@
 <?php
 
-namespace chasingmaxwell\MockDataExtension;
+namespace chasingmaxwell\MockData;
 
 use Behat\Testwork\ServiceContainer\Extension as ExtensionInterface;
+use Behat\Behat\Context\ServiceContainer\ContextExtension;
 use Behat\Testwork\ServiceContainer\ExtensionManager;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\Reference;
 
 class MockDataExtension implements ExtensionInterface {
 
@@ -18,7 +21,7 @@ class MockDataExtension implements ExtensionInterface {
    * {@inheritdoc}
    */
   public function getConfigKey() {
-    return 'mock-data';
+    return 'mock_data';
   }
 
   /**
@@ -30,18 +33,25 @@ class MockDataExtension implements ExtensionInterface {
   /**
    * {@inheritdoc}
    */
+  public function process(ContainerBuilder $container) {
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function configure(ArrayNodeDefinition $builder) {
-    $builder->
-      children()->
-        scalarNode('mock_data_service')->
-          defaultValue('MockData')->
-          info('Use "mock_data_service" to set the class which should handle mock data.')->
-        end()->
-        scalarNode('mock_data_file')->
-          info('Use "mock_data_file" to require a file before loading the mock data service.')->
-        end()->
-      end()->
-    end();
+    $builder
+      ->addDefaultsIfNotSet()
+      ->children()
+        ->scalarNode('mock_data_service')
+          ->defaultValue('chasingmaxwell\MockData\MockData')
+          ->info('Use "mock_data_service" to set the class which should handle mock data.')
+        ->end()
+        ->scalarNode('mock_data_file')
+          ->info('Use "mock_data_file" to require a file before loading the mock data service.')
+        ->end()
+      ->end()
+    ->end();
   }
 
   /**
@@ -49,6 +59,7 @@ class MockDataExtension implements ExtensionInterface {
    */
   public function load(ContainerBuilder $container, array $config) {
     $this->loadMockData($container, $config);
+    $this->loadContextInitializer($container, $config);
   }
 
   /**
@@ -61,9 +72,21 @@ class MockDataExtension implements ExtensionInterface {
     $definition = new Definition($config['mock_data_service']);
 
     if (isset($config['mock_data_file'])) {
-      $defintion->setFile($config['mock_data_file']);
+      $definition->setFile($config['mock_data_file']);
     }
 
     $container->setDefinition(self::MOCK_DATA_ID, $definition);
+  }
+
+  /**
+   * Load the context initializer.
+   *
+   * @param ContainerBuilder $container
+   * @param array            $config
+   */
+  private function loadContextInitializer(ContainerBuilder $container, $config) {
+    $definition = new Definition('chasingmaxwell\MockData\MockDataInitializer', array(new Reference(self::MOCK_DATA_ID)));
+    $definition->addTag(ContextExtension::INITIALIZER_TAG, array('priority' => 0));
+    $container->setDefinition(self::MOCK_DATA_ID . '.context_initializer', $definition);
   }
 }

@@ -2,6 +2,9 @@
 
 namespace chasingmaxwell\MockData;
 
+use chasingmaxwell\MockData\MockData;
+use chasingmaxwell\MockData\MockDataAwareContext;
+use Behat\Behat\Context\Initializer\ContextInitializer;
 use Behat\Behat\Context\Context;
 
 /**
@@ -27,5 +30,5 @@ class MockDataInitializer implements ContextInitializer {
     }
 
     $context->setMockData($this->mockData);
-  };
+  }
 }
