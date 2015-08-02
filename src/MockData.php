@@ -17,18 +17,40 @@ class MockData {
 
   /**
    * Subscribe to data changes.
+   *
+   * @param array $types
+   *   The types of data to subscribe to.
+   * @param callable $method
+   *   The callable function or method which should be invoked when data is
+   *   changed.
    */
-  public function subscribe(callable $method) {
-    $this->subscribers[] = $method;
+  public function subscribe(array $types, callable $method) {
+    $this->subscribers[] = array(
+      'types' => $types,
+      'method' => $method,
+    );
   }
 
   /**
    * Publish data changes to subscribers.
+   *
+   * @param array $types
+   *   Restrict the data types we publish to the given types if provided.
+   *   Otherwise publish all types.
    */
-  private function publish() {
-    var_dump($this->subscribers);
-    foreach ($this->subscribers as $subscriber) {
-      call_user_func_array($subscriber, array($this->getAllRecords()));
+  private function publish(array $types) {
+    $subscribers = $this->subscribers;
+    $records = $this->getAllRecords();
+
+    // Filter subscribers by the given types.
+    if ($types) {
+      $subscribers = array_filter($this->subscribers, function($subscriber) use ($types) {
+        return (bool) array_intersect($subscriber['types'], $types);
+      });
+    }
+
+    foreach ($subscribers as $subscriber) {
+      call_user_func_array($subscriber['method'], array($types, $records));
     }
   }
 
@@ -39,9 +61,11 @@ class MockData {
    *
    * @param array $data
    *   An array of mock data records grouped by type.
+   * @param string $type
+   *   The data type to reset.
    */
-  public function resetData($data) {
-    self::$records = $data;
+  public function resetData($type, $data) {
+    self::$records[$type] = $data;
   }
 
   /**
@@ -57,7 +81,7 @@ class MockData {
    */
   public function addRecord($type, $record) {
     self::$records[$type][] = $record;
-    $this->recordsUpdated();
+    $this->recordsUpdated(array($type));
     return $record;
   }
 
@@ -72,14 +96,17 @@ class MockData {
    */
   public function deleteRecord($type, $id) {
     unset(self::$records[$type][$id]);
-    $this->recordsUpdated();
+    $this->recordsUpdated(array($type));
   }
 
   /**
    * Act on the event that records were updated.
+   *
+   * @param array $types
+   *   The types of records that were updated.
    */
-  protected function recordsUpdated() {
-    $this->publish();
+  protected function recordsUpdated(array $types) {
+    $this->publish($types);
   }
 
   /**
