@@ -12,6 +12,26 @@ class MockData {
   /** @var array An array of mock data records grouped by type. */
   private static $records = array();
 
+  /** @var array The functions or methods to invoke upon a data change. */
+  private $subscribers = array();
+
+  /**
+   * Subscribe to data changes.
+   */
+  public function subscribe(callable $method) {
+    $this->subscribers[] = $method;
+  }
+
+  /**
+   * Publish data changes to subscribers.
+   */
+  private function publish() {
+    var_dump($this->subscribers);
+    foreach ($this->subscribers as $subscriber) {
+      call_user_func_array($subscriber, array($this->getAllRecords()));
+    }
+  }
+
   /**
    * Reset data.
    *
@@ -59,6 +79,7 @@ class MockData {
    * Act on the event that records were updated.
    */
   protected function recordsUpdated() {
+    $this->publish();
   }
 
   /**
