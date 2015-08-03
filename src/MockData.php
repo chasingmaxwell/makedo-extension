@@ -66,6 +66,7 @@ class MockData {
    */
   public function resetData($type, $data) {
     self::$records[$type] = $data;
+    $this->recordsUpdated(array($type));
   }
 
   /**
