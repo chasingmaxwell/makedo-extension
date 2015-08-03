@@ -1,9 +1,9 @@
 <?php
 
-namespace chasingmaxwell\MockData;
+namespace chasingmaxwell\MockDataExtension;
 
-use Behat\Behat\Context\Context;
 use chasingmaxwell\MockData\MockData;
+use Behat\Behat\Context\Context;
 
 /**
  * Mock data aware context.

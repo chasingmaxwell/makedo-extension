@@ -1,6 +1,6 @@
 <?php
 
-namespace chasingmaxwell\MockData;
+namespace chasingmaxwell\MockDataExtension;
 
 use Behat\Testwork\ServiceContainer\Extension as ExtensionInterface;
 use Behat\Behat\Context\ServiceContainer\ContextExtension;
@@ -85,7 +85,7 @@ class MockDataExtension implements ExtensionInterface {
    * @param array            $config
    */
   private function loadContextInitializer(ContainerBuilder $container, $config) {
-    $definition = new Definition('chasingmaxwell\MockData\MockDataInitializer', array(new Reference(self::MOCK_DATA_ID)));
+    $definition = new Definition('chasingmaxwell\MockDataExtension\MockDataInitializer', array(new Reference(self::MOCK_DATA_ID)));
     $definition->addTag(ContextExtension::INITIALIZER_TAG, array('priority' => 0));
     $container->setDefinition(self::MOCK_DATA_ID . '.context_initializer', $definition);
   }

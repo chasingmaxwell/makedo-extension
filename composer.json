@@ -9,12 +9,19 @@
       "email": "chasingmaxwell@gmail.com"
     }
   ],
+  "repositories": [
+    {
+      "type": "git",
+      "url": "/home/peter/workspace/MockData"
+    }
+  ],
   "require": {
+    "chasingmaxwell/mock-data": "dev-master",
     "Behat/Behat": "^3.0"
   },
   "autoload": {
     "psr-4": {
-      "chasingmaxwell\\MockData\\": "src"
+      "chasingmaxwell\\MockDataExtension\\": "src"
     }
   }
 }

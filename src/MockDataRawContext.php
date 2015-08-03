@@ -1,8 +1,8 @@
 <?php
 
-namespace chasingmaxwell\MockData;
+namespace chasingmaxwell\MockDataExtension;
 
-use chasingmaxwell\MockData\MockDataAwareContext;
+use chasingmaxwell\MockData\MockData;
 
 abstract class MockDataRawContext implements MockDataAwareContext {
 

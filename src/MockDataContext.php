@@ -1,8 +1,7 @@
 <?php
 
-namespace chasingmaxwell\MockData;
+namespace chasingmaxwell\MockDataExtension;
 
-use chasingmaxwell\MockData\MockDataRawContext;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
