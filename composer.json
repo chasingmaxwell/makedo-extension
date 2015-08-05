@@ -1,6 +1,6 @@
 {
-  "name": "chasingmaxwell/mock-data-extension",
-  "description": "Mock data extension for behat.",
+  "name": "chasingmaxwell/makedo-extension",
+  "description": "MakeDo extension for behat.",
   "type": "behat-extension",
   "license": "MIT",
   "authors": [
@@ -12,16 +12,16 @@
   "repositories": [
     {
       "type": "git",
-      "url": "/home/peter/workspace/MockData"
+      "url": "/home/peter/workspace/MakeDo"
     }
   ],
   "require": {
-    "chasingmaxwell/mock-data": "dev-master",
+    "chasingmaxwell/makedo": "dev-master",
     "Behat/Behat": "^3.0"
   },
   "autoload": {
     "psr-4": {
-      "chasingmaxwell\\MockDataExtension\\": "src"
+      "chasingmaxwell\\MakeDoExtension\\": "src"
     }
   }
 }
