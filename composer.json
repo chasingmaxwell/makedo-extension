@@ -9,14 +9,8 @@
       "email": "chasingmaxwell@gmail.com"
     }
   ],
-  "repositories": [
-    {
-      "type": "git",
-      "url": "/home/peter/workspace/MakeDo"
-    }
-  ],
   "require": {
-    "chasingmaxwell/makedo": "dev-master",
+    "chasingmaxwell/makedo": "^0.0.1",
     "Behat/Behat": "^3.0"
   },
   "autoload": {
