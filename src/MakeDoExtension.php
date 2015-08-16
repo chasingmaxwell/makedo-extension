@@ -1,6 +1,6 @@
 <?php
 
-namespace chasingmaxwell\MakeDoExtension;
+namespace chasingmaxwell\MakeDoExtension\ServiceContainer;
 
 use Behat\Testwork\ServiceContainer\Extension as ExtensionInterface;
 use Behat\Behat\Context\ServiceContainer\ContextExtension;

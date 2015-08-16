@@ -21,7 +21,8 @@
   },
   "autoload": {
     "psr-4": {
-      "chasingmaxwell\\MakeDoExtension\\": "src"
+      "chasingmaxwell\\MakeDoExtension\\": "src/",
+      "chasingmaxwell\\MakeDoExtension\\ServiceContainer\\": "src/"
     }
   }
 }
